@@ -1,0 +1,9 @@
+{
+  "name": "pangare-online-zero",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pangaré — protótipo online multiplayer",
+  "main": "server.js",
+  "scripts": {"start": "node server.js"},
+  "dependencies": {"express": "^4.21.2", "ws": "^8.18.0"}
+}
