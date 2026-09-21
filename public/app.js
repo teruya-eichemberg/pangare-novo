@@ -101,7 +101,11 @@ function lane(row){
   const cards=row.cards.map(card).join('');
   const carrots=row.carrots?Array(Math.min(row.carrots,4)).fill('<img class="modifier" src="/assets/action_cenoura.png">').join(''):'';
   const chickens=row.chickens?Array(Math.min(row.chickens,4)).fill('<img class="modifier" src="/assets/action_galinha.png">').join(''):'';
-  const bets=state.players.flatMap(p=>Object.entries(p.bets).filter(([,horse])=>Number(horse)===row.horse).map(([pos])=>`<span class="mini-bet-wrap"><img class="mini-bet" title="${escapeHtml(p.name)}: ${pos}º" src="${betImg(BET[p.color][pos])}"></span>`)).join('');
+  const betItems=state.players.flatMap(p=>Object.entries(p.bets)
+    .filter(([,horse])=>Number(horse)===row.horse)
+    .map(([pos])=>`<div class="mini-bet-wrap" title="${escapeHtml(p.name)} apostou no ${pos}º lugar"><img class="mini-bet" src="${betImg(BET[p.color][pos])}"><span class="mini-bet-label">${escapeHtml(p.name)} · ${pos}º</span></div>`))
+    .join('');
+  const bets=betItems?`<div class="bet-title">APOSTAS NESTE PANGARÉ</div><div class="bet-items">${betItems}</div>`:'';
   return `<div class="lane" style="box-shadow:inset 6px 0 ${h.color}"><div class="lane-head"><span>${h.name} <span class="lane-meta">${row.cards.length}/7</span></span><span>${row.carrots?'🥕 '+row.carrots+' ':''}${row.chickens?'🐔 '+row.chickens:''}</span></div><div class="cards">${cards}${carrots}${chickens}</div><div class="bet-zone">${bets}</div></div>`;
 }
 
