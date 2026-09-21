@@ -213,6 +213,8 @@ function reveal(room, player) {
     stopRace(room, player);
   } else {
     broadcast(room);
+    // Bots must receive another scheduled step after a normal reveal.
+    scheduleBot(room);
   }
 }
 
@@ -290,6 +292,8 @@ function playAction(room, player, data) {
 
   room.phase = 'bet';
   broadcast(room);
+  // Continue the bot turn after playing an action.
+  scheduleBot(room);
 }
 
 function skipAction(room, player) {
